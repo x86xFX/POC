@@ -26,12 +26,10 @@ fun TestBScreen(
         Text(text = "Test B Screen")
 
         ComponentB(
-            isLoading = { testViewModel.uiState.isLoading },
-            username = { testViewModel.uiState.username },
-            password = { testViewModel.uiState.password },
-            onClickMe = {
-                testViewModel.updateState()
-            }
+            isLoading = testViewModel.uiState.isLoading,
+            username = testViewModel.uiState.username,
+            password = testViewModel.uiState.password,
+            onClickMe = testViewModel::updateState
         )
         
         Text(text = "You're awesome! Thank you for taking the time to review my code ❤️", textAlign = TextAlign.Center)
@@ -40,16 +38,16 @@ fun TestBScreen(
 
 @Composable
 fun ComponentB(
-    isLoading: () -> Boolean,
-    username: () -> String,
-    password: () -> String,
+    isLoading: Boolean,
+    username: String,
+    password: String,
     onClickMe: () -> Unit
 ) {
     Column {
-        if (isLoading()) CircularProgressIndicator()
+        if (isLoading) CircularProgressIndicator()
 
-        Text(text = username())
-        Text(text = password())
+        Text(text = username)
+        Text(text = password)
 
         Button(onClick = onClickMe) {
             Text(text = "Save State & check log")
